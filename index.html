@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <h1>
+        THE TITLE OF YOUR WEBPAGE
+    </h1>
+    <div id="container"></div>
+
+    <!-- Method 1 - less ideal, mixing HTML with JavaScript and can only have 1 "onclick event per element" -->
+    <button onclick="alert('Hello World')">Click Me</button>
+
+    <!-- Method 2 - a little better, separated HTML and JS, but still have problem that DOM element can only
+    have 1 "onclick" property -->
+    <button id="btn2">Click Me 2</button>
+
+    <!-- Method 3 - a little better, separated HTML and JS, but still have problem that DOM element can only
+    have 1 "onclick" property -->
+    <button id="btn3">Click Me 3</button>
+
+    <!-- Using named functions -->
+    <!-- For Method 1 -->
+    <button id="btn" onclick="alertFunction()">CLICK ME BABY 4</button>
+
+    <button id="btn5">Click Me 5</button>
+
+    <!-- Attaching listeners to groups of nodes -->
+    <div id="container">
+        <button id="1">Click Me 6</button>
+        <button id="2">Click Me 7</button>
+        <button id="3">Click Me 8</button>
+    </div>
+
+    <script>
+        const container = document.querySelector('#container');
+
+        const content = document.createElement('div');
+        content.classList.add('content');
+        content.textContent = 'This is the glorious text-content!';
+
+        const content2 = document.createElement('p');
+        content2.classList.add('content2');
+        content2.style.color = 'red';
+        content2.textContent = 'Hey I\'m red!';
+
+        const content3 = document.createElement('h3');
+        content3.classList.add('content3');
+        content3.style.color = 'blue';
+        content3.textContent = 'Hey I\'m blue h3!';
+
+        const content4 = document.createElement('div');
+        content4.classList.add('content4');
+        content4.style.backgroundColor = 'pink';
+        content4.style.border = 'solid black';
+        content4.style.color = 'blue';
+        content4.textContent = 'Hey I\'m blue h3!';
+
+        const content5 = document.createElement('h1');
+        content5.classList.add('content5');
+        content5.style.color = 'brown';
+        content5.textContent = 'I\'m in a div!';
+
+        const content6 = document.createElement('p');
+        content6.classList.add('content6');
+        content6.style.color = 'green';
+        content6.textContent = 'ME TOO!';
+
+        container.appendChild(content);
+        container.appendChild(content2);
+        container.appendChild(content3);
+        content4.appendChild(content5);
+        content4.appendChild(content6);
+        container.appendChild(content4);
+
+
+        /* Method 2 - a little better, separated HTML and JS, but still have problem that DOM element can only
+        have 1 "onclick" property */
+        const btn2 = document.querySelector('#btn2');
+        btn2.onclick = () => alert("Hello World");
+
+        /* Method 3 - maintain separation and allow multiple event listeners if need arise.
+        Much more flexible and powerful. */
+        const btn3 = document.querySelector('#btn3');
+        btn3.addEventListener('click', () => {
+            alert("Hello World");
+        });
+
+        // Using named functions
+        function alertFunction() {
+            alert("YAY! YOU DID IT!");
+        }
+
+        // Method 2
+        btn.onclick = alertFunction;
+
+        // Method 3
+        btn.addEventListener('click', alertFunction);
+
+        const btn5 = document.querySelector('#btn5');
+        btn5.addEventListener('click', function (e) {
+            console.log(e);
+        });
+
+        btn5.addEventListener('click', function (e) {
+            e.target.style.background = 'blue';
+            e.target.style.color = 'white';
+        });
+
+        // Attaching listeners to groups of nodes
+        // Buttons is a node list. It looks and acts much like an array.
+        const buttons = document.querySelectorAll('button');
+
+        // We use the .forEach method to iterate through each button
+        buttons.forEach((button) => {
+            // And for each one we add a 'click' listener
+            button.addEventListener('click', (e) => {
+                alert(button.id);
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
